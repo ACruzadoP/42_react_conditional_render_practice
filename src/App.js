@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function handleClick(){
+    this.setState(prevState => {
+        return {
+            isLoggedIn: !prevState.isLoggedIn
+        }
+    })
 }
 
-export default App;
+class App extends React.Component {
+    constructor () {
+        super()
+        this.state = {
+            isLoggedIn: true
+        }
+        handleClick = handleClick.bind(this)
+    }
+
+    isLoggedInOrOut() {
+        if (this.state.isLoggedIn) {
+            return "Sí"
+        } else {
+            return "No"
+        }
+    }
+
+    render () {
+        let variable = this.isLoggedInOrOut()
+        let cadenaBoton = this.state.isLoggedIn ? "Log Out" : "Log In"
+
+        return (
+            <div>
+                <h1>¿Se encuentra el usuario conectado? {variable}</h1>
+                <button onClick={handleClick}>{cadenaBoton}</button>
+            </div>
+        )
+    }
+    
+}
+
+export default App
